@@ -3,7 +3,13 @@ package com.tsoft.education;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class InterruptSleepengThread {
+public class InterruptSleepingThread {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(InterruptSleepingThread.class.getName() + ": Sleeping thread is interrupted by another thread");
+        InterruptSleepingThread interruptSleepingThread = new InterruptSleepingThread();
+        interruptSleepingThread.start();
+    }
+
     public void start() throws InterruptedException {
         Thread sleeper = new Thread(() -> {
             Thread.currentThread().setName("Sleeper");

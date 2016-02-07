@@ -6,6 +6,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PutResultsToMap {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(PutResultsToMap.class.getName() + ": Create many threads; each putting it's result to ConcurrentHashMap");
+        PutResultsToMap putResultsToMap = new PutResultsToMap();
+        putResultsToMap.startThreads(100000);
+    }
+
     public void startThreads(int threadCount) throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < threadCount; i ++) {
@@ -22,13 +28,12 @@ public class PutResultsToMap {
         }
 
         // print the result
-        //for (Long id : results.keySet().stream().sorted().collect(Collectors.toList())) {
-        //    System.out.println(id + ": " + results.get(id).value);
-        //}
+        long minId = results.keySet().stream().min(Long::compare).get();
+        long maxId = results.keySet().stream().max(Long::compare).get();
 
         // calc sum
         int sum = results.values().stream().mapToInt(r -> r.value).sum();
-        System.out.println("Sum: " + sum);
+        System.out.println("Min thread ID: " + minId + ", Max thread ID: " + maxId + ", Sum: " + sum);
     }
 
     class Result {

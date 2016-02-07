@@ -1,6 +1,12 @@
 package com.tsoft.education;
 
 public class SynchronizedClass {
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println(SynchronizedClass.class.getName() + ": 'synchronized' - how it works ?");
+        SynchronizedClass synchronizedClass = new SynchronizedClass();
+        synchronizedClass.start();
+    }
+
     class SyncMethods {
 
         /**
