@@ -1,0 +1,9 @@
+1. HashMap and TreeMap, usage, differences, algorithms
+2. Graphs. Navigation methods, given edges' weighth - how to find out a shortest way.
+3. Given a string. Find out is it have the same chars. Not limits for memory usage.
+   A complexity must be O(n).
+
+   My answer: Allocate a boolean array [0..65535]. Iterate through the chars and check/set
+   appropriate element using char's code as an index.
+4. Print all int's between 1 and the given N. Do not use if, while, try .. catch etc.
+   No solution in Java.

@@ -1,0 +1,32 @@
+/*
+  Find out departments with number of employees less or equal 4
+*/
+select d.name, count(*)
+from department d 
+  join employee e on (e.DepartmentId = d.DepartmentId)
+group by d.name
+having count(*) <= 4;
+
+/*
+  Find out departments with maximum summary salary
+*/
+with
+  salary_by_department as (
+    select DepartmentId, sum(salary) salary
+    from employee e
+    group by e.DepartmentId
+  ),
+  max_salary as (
+    select max(salary) salary
+    from salary_by_department
+  )
+select DepartmentId
+from salary_by_department sbd
+where sbd.salary = (select salary from max_salary);
+
+/*
+  Find out employees whose salary more then their chief's
+*/
+select e.name
+from employee e
+where e.salary > (select salary from employee x where e.ChiefId = x.EmployeeId);
