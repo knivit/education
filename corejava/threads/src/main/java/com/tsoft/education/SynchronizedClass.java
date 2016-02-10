@@ -62,18 +62,26 @@ public class SynchronizedClass {
     }
 
     public void start() throws InterruptedException {
-        System.out.println("Part 1. Synchronizing methods");
+        System.out.println("Part 1. Using monitor of the same object");
         SyncMethods syncMethods = new SyncMethods();
-        Thread t1 = new Thread(() -> { syncMethods.m1(); });
-        Thread t2 = new Thread(() -> { syncMethods.m2(); });
-        t1.start(); t2.start();
-        t1.join(); t2.join();
+        Thread ts1 = new Thread(() -> { syncMethods.m1(); });
+        Thread ts2 = new Thread(() -> { syncMethods.m2(); });
+        ts1.start(); ts2.start();
+        ts1.join(); ts2.join();
 
-        System.out.println("Part 2. Synchronizing statements");
-        SyncStatements syncStatements = new SyncStatements();
-        Thread t3 = new Thread(() -> { syncStatements.m1(); });
-        Thread t4 = new Thread(() -> { syncStatements.m2(); });
-        t3.start(); t4.start();
-        t3.join(); t4.join();
+        System.out.println("Part 2. Using monitors of two objects");
+        SyncMethods sm1 = new SyncMethods();
+        SyncMethods sm2 = new SyncMethods();
+        Thread tsm1 = new Thread(() -> { sm1.m1(); });
+        Thread tsm2 = new Thread(() -> { sm2.m2(); });
+        tsm1.start(); tsm2.start();
+        tsm1.join(); tsm2.join();
+
+        System.out.println("Part 3. Synchronizing statements");
+        SyncStatements ss = new SyncStatements();
+        Thread tss1 = new Thread(() -> { ss.m1(); });
+        Thread tss2 = new Thread(() -> { ss.m2(); });
+        tss1.start(); tss2.start();
+        tss1.join(); tss2.join();
     }
 }

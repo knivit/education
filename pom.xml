@@ -13,6 +13,9 @@
         <module>corejava/nio</module>
         <module>corejava/sort</module>
         <module>corejava/threads</module>
+
+        <module>yandex/list</module>
+        <module>yandex/sort</module>
     </modules>
 
     <properties>

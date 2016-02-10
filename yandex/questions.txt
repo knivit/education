@@ -1,0 +1,25 @@
+An interview has time limit 60 min.
+Apply date: 07 feb 2016
+
+1. What is the difference between HashMap and TreeMap ?
+
+Answer: TreeMap keeps keys sorted. HashMap doesn't.
+
+2. Given: a singly linked list with possible loops.
+Find out a number of elements or report there is a loop.
+Do not allocate any arrays.
+
+Tests:
+1) A -> B -> null. Must return 2.
+2) A -> B -> A. Must return "A loop found".
+
+Answer: Iterate through the list, increasing the counter.
+For each element do check (starting from the first) is it appeared before the counter is 0.
+
+3. Given: ArrayList<ArrayList<Integer>>.
+The outer ArrayList has 10..10.000 elements.
+The inner ArrayList has 1..10.000 elements (i.e. Integers).
+Sort it. Find out algorithm's complexity.
+
+4. An object has array ("window") of N integers.
+Object's method receive an integer and must return a minimal integer since last N received elements.

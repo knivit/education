@@ -17,10 +17,9 @@ public class Main {
             }
         }
 
-        ArrayList<Integer> result = main.sortV1(list);
+        ArrayList<Integer> result = main.sort(list);
     }
 
-    // Ver. 1.
     private ArrayList<Integer> sort(ArrayList<ArrayList<Integer>> list) {
         // 1. Sort inner lists using standard Java functions
         for (int i = 0; i < list.size(); i ++) {
@@ -37,5 +36,7 @@ public class Main {
                 if (indexes[i] == -1) continue;
             }
         }
+
+        return result;
     }
 }
