@@ -11,6 +11,7 @@
         <module>corejava/classes/inheritance</module>
         <module>corejava/lambdas</module>
         <module>corejava/nio</module>
+        <module>corejava/sockets</module>
         <module>corejava/sort</module>
         <module>corejava/threads</module>
 
