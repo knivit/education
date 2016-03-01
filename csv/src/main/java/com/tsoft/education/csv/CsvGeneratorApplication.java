@@ -4,18 +4,19 @@ import com.tsoft.education.csv.config.CsvConfig;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.util.Assert;
 
+import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.List;
 
-public class CsvGeneratorApplication {
+public class CsvGeneratorApplication implements Closeable {
     private List<CsvConfig> configList;
     private int iterationCount = 0;
 
     public void loadConfigs(String... configFileNames) {
         Assert.notNull(configFileNames);
 
-        configList = new ArrayList<CsvConfig>();
+        configList = new ArrayList<>();
         for (String configFileName : configFileNames) {
             FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext(configFileName);
 
@@ -50,6 +51,7 @@ public class CsvGeneratorApplication {
         }
     }
 
+    @Override
     public void close() {
         if (configList == null) {
             return;

@@ -8,7 +8,7 @@
 
     <!-- connections to retrieve a data for generators -->
     <bean id="oracleDataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
-        <property name="URL" value="jdbc:oracle:thin:@//<host>:1521/<instance>"/>
+        <property name="URL" value="jdbc:oracle:thin:@//host:1521/instance"/>
         <property name="user" value="user"/>
         <property name="password" value="password"/>
     </bean>
@@ -18,12 +18,15 @@
     </bean>
 
     <!-- all formatters must extend java.text.Format -->
-    <bean id="dateFormatter" class="java.text.SimpleDateFormat">
+    <bean id="dateFormatter"  class="java.text.SimpleDateFormat">
         <constructor-arg type="java.lang.String" value="yyyy-MM-dd"/>
     </bean>
 
     <!-- all generators must extend java.util.Iterator -->
     <bean id="sdateValueGenerator" class="com.tsoft.education.csv.column.DateValueGenerator">
+        <property name="formatter" ref="dateFormatter"/>
+        <property name="from" value="2010-01-01"/>
+        <property name="to" value="2016-03-01"/>
     </bean>
 
     <bean id="nameValueGenerator" class="com.tsoft.education.csv.column.StringValueGenerator">
