@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- connections to retrieve a data for generators -->
+    <bean id="oracleDataSource" class="oracle.jdbc.pool.OracleDataSource" destroy-method="close">
+        <property name="URL" value="jdbc:oracle:thin:@//<host>:1521/<instance>"/>
+        <property name="user" value="user"/>
+        <property name="password" value="password"/>
+    </bean>
+
+    <!-- all schedulers must extend org.springframework.scheduling.TaskScheduler -->
+    <bean id="scheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler" destroy-method="shutdown">
+    </bean>
+
+    <!-- all formatters must extend java.text.Format -->
+    <bean id="dateFormatter" class="java.text.SimpleDateFormat">
+        <constructor-arg type="java.lang.String" value="yyyy-MM-dd"/>
+    </bean>
+
+    <!-- all generators must extend java.util.Iterator -->
+    <bean id="sdateValueGenerator" class="com.tsoft.education.csv.column.DateValueGenerator">
+    </bean>
+
+    <bean id="nameValueGenerator" class="com.tsoft.education.csv.column.StringValueGenerator">
+        <property name="minLength" value="10"/>
+        <property name="maxLength" value="30"/>
+    </bean>
+
+    <bean id="genreValueGenerator" class="com.tsoft.education.csv.column.ValueGenerator">
+        <constructor-arg name="values">
+            <list>
+                <value>M</value>
+                <value>F</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="weightValueGenerator" class="com.tsoft.education.csv.column.IntegerValueGenerator">
+        <property name="from" value="0"/>
+        <property name="to" value="10000"/>
+    </bean>
+
+    <bean id="browserValueGenerator" class="com.tsoft.education.csv.column.ValueGenerator">
+        <constructor-arg name="values">
+            <list>
+                <value>IE</value>
+                <value>Firefox</value>
+                <value>Chrome</value>
+                <value>Opera</value>
+                <value>Safari</value>
+                <value>Unknown</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="priceValueGenerator" class="com.tsoft.education.csv.column.DoubleValueGenerator">
+        <property name="from" value="0.01"/>
+        <property name="to" value="10000"/>
+    </bean>
+
+    <!-- single CSV file's definition -->
+    <bean class="com.tsoft.education.csv.config.CsvConfig">
+        <constructor-arg name="table" value="WebStats"/>
+
+        <constructor-arg name="columnConfigs">
+            <list>
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="sdate"/>
+                    <constructor-arg name="generator" ref="sdateValueGenerator"/>
+                    <property name="formatter" ref="dateFormatter"/>
+                </bean>
+
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="name"/>
+                    <constructor-arg name="generator" ref="nameValueGenerator"/>
+                </bean>
+
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="genre"/>
+                    <constructor-arg name="generator" ref="genreValueGenerator"/>
+                </bean>
+
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="weight"/>
+                    <constructor-arg name="generator" ref="weightValueGenerator"/>
+                </bean>
+
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="browser"/>
+                    <constructor-arg name="generator" ref="browserValueGenerator"/>
+                </bean>
+
+                <bean class="com.tsoft.education.csv.config.ColumnConfig">
+                    <constructor-arg name="name" value="price"/>
+                    <constructor-arg name="generator" ref="priceValueGenerator"/>
+                </bean>
+            </list>
+        </constructor-arg>
+
+        <constructor-arg name="scheduler" ref="scheduler"/>
+
+        <property name="percentOfDuplicates" value="10"/>
+    </bean>
+ </beans>
