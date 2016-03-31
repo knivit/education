@@ -9,7 +9,7 @@ public class MergeSort {
         MergeSort mergeSort = new MergeSort();
 
         long time = System.currentTimeMillis();
-        mergeSort.start(1000000);
+        mergeSort.start(10);
         System.out.println("Exec. time " + (System.currentTimeMillis() - time));
     }
 

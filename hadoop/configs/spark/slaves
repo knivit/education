@@ -18,3 +18,4 @@
 # A Spark Worker will be started on each of the machines listed below.
 cos7-01
 cos7-02
+cos7-03

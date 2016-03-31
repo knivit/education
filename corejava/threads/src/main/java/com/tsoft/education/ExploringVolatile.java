@@ -15,7 +15,7 @@ public class ExploringVolatile {
     AtomicInteger atomicInteger = new AtomicInteger(0);
 
     private void start() throws InterruptedException {
-        ArrayList<Thread> threads = new ArrayList();
+        ArrayList<Thread> threads = new ArrayList<>();
         for (int i = 0; i < 100000; i ++) {
             Thread t = new Thread(() -> {
                 volatilePrimitiveCounter ++;

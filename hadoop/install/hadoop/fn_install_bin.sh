@@ -4,9 +4,11 @@ set -e -x
 hosts=$@
 [ -z "$hosts" ] && { echo "hosts is empty"; exit 1; }
 
+source ../../env.sh
+
 for host in $hosts; do
   echo "=== $host ==="
-  scp ../../hadoop-2.7.2.tar.gz root@$host:/opt/
+  scp $DISTR_PATH/hadoop-2.7.2.tar.gz root@$host:/opt/
   ssh root@$host '
     set -e -x
     cd /opt

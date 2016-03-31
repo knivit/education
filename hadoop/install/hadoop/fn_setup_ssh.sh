@@ -1,8 +1,8 @@
 #/bin/bash
 set -e -x
 
-host=$@
-[ -z "$host" ] && { echo "Pass host's name"; exit 1; }
+hosts=$@
+[ -z "$hosts" ] && { echo "hosts is empty"; exit 1; }
 
 for host in $hosts; do
   echo "=== $host ==="

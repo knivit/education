@@ -9,6 +9,7 @@
 
     <modules>
         <module>corejava/classes/inheritance</module>
+        <module>corejava/collections</module>
         <module>corejava/lambdas</module>
         <module>corejava/nio</module>
         <module>corejava/sockets</module>
@@ -18,7 +19,7 @@
         <module>ebank/task</module>
 
         <module>yandex/list</module>
-        <module>yandex/sort</module>
+        <module>yandex/yandex-sort</module>
     </modules>
 
     <properties>

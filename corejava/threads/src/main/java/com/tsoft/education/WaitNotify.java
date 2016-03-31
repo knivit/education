@@ -7,7 +7,7 @@ public class WaitNotify {
     }
 
     private Object lock = new Object();
-    private int condition = 10;
+    private volatile int condition = 10;
 
     private void start() throws InterruptedException {
         Thread awaiter = new Thread(() -> {
@@ -16,7 +16,7 @@ public class WaitNotify {
                 while (condition == 10) {
                     try {
                         System.out.println("Awaiter: condition is false, doing lock.wait()");
-                        lock.wait();
+                        lock.wait(1000);
                         System.out.println("Awaiter: Got a notification, check the condition again");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -28,21 +28,28 @@ public class WaitNotify {
         });
 
         Thread notifier = new Thread(() -> {
-            // 'synchronized' must be here, or we'll receive an java.lang.IllegalMonitorStateException
-            // also this is prevents from data race и memory visibility
-            synchronized(lock) {
-                System.out.println("Notifier: I'm started. setting the condition to true");
-                condition = 5;
+            try {
+                // 'synchronized' must be here, or we'll receive an java.lang.IllegalMonitorStateException
+                // also this is prevents from data race и memory visibility
+                synchronized (lock) {
+                    System.out.println("Notifier: I'm started and in 'synchronized' section now. Setting the condition to true");
+                    Thread.sleep(5000);
+                    condition = 5;
 
-                System.out.println("Notifier: Sending notify() on 'lock' object");
-                lock.notifyAll();
+                    System.out.println("Notifier: Sending notify() on 'lock' object");
+                    Thread.sleep(5000);
+                    lock.notifyAll();
 
-                System.out.println("Notifier: done, exiting ...");
+                    System.out.println("Notifier: done, exiting the 'synchronized' section...");
+                    Thread.sleep(5000);
+                }
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
         });
 
         awaiter.start();
-        Thread.sleep(100); // make sure Awaiter is started
+        Thread.sleep(5000); // make sure Awaiter is started
         notifier.start();
 
         awaiter.join();

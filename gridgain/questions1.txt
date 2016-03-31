@@ -1,0 +1,11 @@
+What are ConcurrentMap methods absent in Map ?
+What's difference in methods between AtomicReference and a volatile variable ?
+Two threads executes Reentrance lock(), how many will invoke unlock() ?
+After semaphore's acquire() - how many threads will invoke release() ?
+
+Check list:
+- volatile
+- critical sections
+- all java.util.concurrency.*
+- deadlocks
+

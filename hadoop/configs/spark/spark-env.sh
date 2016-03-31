@@ -67,3 +67,20 @@ SPARK_DAEMON_MEMORY=1g # to allocate to the master, worker and history server th
 # - SPARK_PID_DIR       Where the pid file is stored. (Default: /tmp)
 # - SPARK_IDENT_STRING  A string representing this instance of spark. (Default: $USER)
 # - SPARK_NICENESS      The scheduling priority for daemons. (Default: 0)
+
+# For Apache Ignite
+# https://apacheignite-fs.readme.io/docs/installation-deployment
+IGNITE_LIBS="${IGNITE_HOME}/libs/*"
+
+for file in ${IGNITE_HOME}/libs/*
+do
+    if [ -d ${file} ] && [ "${file}" != "${IGNITE_HOME}"/libs/optional ]; then
+        IGNITE_LIBS=${IGNITE_LIBS}:${file}/*
+    fi
+done
+
+IGNITE_LIBS="${IGNITE_LIBS}:${IGNITE_HOME}/libs/optional/ignite-spark/*"
+IGNITE_LIBS="${IGNITE_LIBS}:${IGNITE_HOME}/libs/optional/ignite-log4j/*"
+IGNITE_LIBS="${IGNITE_LIBS}:${IGNITE_HOME}/libs/optional/ignite-scalar/*"
+
+export SPARK_CLASSPATH=$IGNITE_LIBS

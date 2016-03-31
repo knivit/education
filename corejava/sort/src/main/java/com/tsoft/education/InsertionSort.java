@@ -36,7 +36,7 @@ public class InsertionSort {
     }
 
     private void start(int numberOfElements) {
-        int[] arr = new Random().ints(numberOfElements, 0, 100).toArray();
+        int[] arr = new Random().ints(numberOfElements, 0, 10).toArray();
 
         if (numberOfElements < 16) {
             System.out.println("Original array: " + Arrays.toString(arr));
@@ -50,10 +50,10 @@ public class InsertionSort {
                 j --;
             }
             arr[j + 1] = x;
-        }
 
-        if (numberOfElements < 16) {
-            System.out.println("Sorted array: " + Arrays.toString(arr));
+            if (numberOfElements < 16) {
+                System.out.println("[" + i + "] " + Arrays.toString(arr));
+            }
         }
     }
 }
