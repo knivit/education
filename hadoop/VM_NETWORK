@@ -1,0 +1,32 @@
+--- Virtual Box network settings --------
+
+1. The best option is to create 'Bridged Network' - the VM will get a real IP from the router
+and will be independent (except shared network card) from the Host.
+
+2. In case strict IP assignment, try next:
+- First adapter must be "NAT", all default
+- Add a second "Virtual Host Adapter", all default
+- Execute
+VBoxManage natnetwork add --netname natnet1 --network "192.168.15.0/24" --enable --dhcp on
+VBoxManage natnetwork start --netname natnet1
+
+- File -> Settings -> Network: Host Virtual Networks:
+  Adapter: IPv4=192.168.56.1; IPv4 Network Mask=255.255.255.0
+  DHCP Server: On; Server Address=192.168.56.100; Network Mask=255.255.255.0; 
+    Addresses start=192.168.56.101; Addresses End=192.168.56.254
+IMPORTANT: 
+- When CentOS 6 installing, click "Network" and enable both adapters (click Edit on both)
+- After installation, add to /etc/sysconfig/network-scripts/ifcfg-eth1
+DHCPCLASS=
+IPADDR=192.168.56.101 # 102, 103 etc for other guests
+NETMASK=255.255.255.0
+BOOTPROTO=static
+- check /etc/resolv.conf, it must contain default DNS servers (do not modify it)
+- add to /etc/hosts
+127.0.0.1 c00
+- add to Windows\System32\drivers\etc\hosts file
+192.168.56.101 c00
+
+These both options DO NOT REQUIRE any port forwarding, as
+in case 1), the guest will be using it's own IP;
+in case 2), the guest will be using "pseudo" IP.
