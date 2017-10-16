@@ -18,8 +18,10 @@
 
         <module>ebank/task</module>
 
+        <module>hazelcast/interceptors</module>
+
         <module>yandex/list</module>
-        <module>yandex/yandex-sort</module>
+        <module>yandex/sort</module>
     </modules>
 
     <properties>
