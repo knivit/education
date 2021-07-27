@@ -36,7 +36,7 @@ public class IgniteServiceTest {
         Ignite igniteA = Ignition.getOrStart(igniteConfigurationA);
         IgniteCache<Integer, String> cacheA = igniteA.getOrCreateCache(atomicCacheConfiguration);
 
-        fillCache("cacheA", cacheA);
+        //fillCache("cacheA", cacheA);
         printCacheSize("cacheA", cacheA);
         scanCache("cacheA", cacheA);
 

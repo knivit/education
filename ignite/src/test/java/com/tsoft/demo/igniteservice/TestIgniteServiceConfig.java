@@ -21,7 +21,7 @@ public class TestIgniteServiceConfig {
     public ServiceConfiguration serviceAConfiguration() {
         return new ServiceConfiguration()
             .setName(IgniteServiceA.NAME)
-            .setService(new IgniteServiceA())
+            .setService(new IgniteServiceAImpl())
             .setMaxPerNodeCount(1)
             .setTotalCount(2);
     }
