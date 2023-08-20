@@ -8,6 +8,8 @@
     <name>education</name>
 
     <modules>
+        <module>algorithms/ant-colony</module>
+
         <module>corejava/classes/inheritance</module>
         <module>corejava/collections</module>
         <module>corejava/lambdas</module>
